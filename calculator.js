@@ -37,20 +37,57 @@ let num2 = 0;
 let operator = "";
 
 let operate = (num1, operator, num2) => {
+    let result = 0;
     switch(operator) {
         case "+":
-            add(num1, num2);
+            result = add(num1, num2);
             break;
         case "-":
-            subtract(num1, num2);
+            result = subtract(num1, num2);
             break;
         case "*":
-            multiply(num1, num2);
+            result = multiply(num1, num2);
             break;
         case "/":
-            divide(num1, num2);
+            result = divide(num1, num2);
             break;
         default:
             break;
     }
+    return result;
 };
+
+let setupCalculator = () => {
+    const container = document.querySelector(".container");
+    const calculator = document.createElement("div");
+    calculator.className = `calculator`;
+    calculator.style.display = `flex`;
+    calculator.style.flexDirection = `column`;
+    const rows = [];
+    const buttons = [];
+    for (let i = 0; i < 10; i++) {
+        const button = document.createElement("button");
+        button.className = `${i}`;
+        button.innerText = `${i}`;
+        button.style.width = `40px`;
+        button.style.height = `40px`;
+        buttons.push(button);
+    }
+    const operations = ["+", "-", "*", "/", "="];
+    operations.forEach(operation => {
+        const button = document.createElement("button");
+        button.className = `${operation}`;
+        button.innerText = `${operation}`;
+        buttons.push(button);
+    });
+
+    for (let i = 0; i < 4; i++) {
+        const row = document.createElement("div");
+        row.className = `row${i}`;
+        row.style.display = `flex`;
+        row.style.flexDirection = `row`;
+        row.style.justifyContent = `center`;
+        row.style.alignItems = `center`;
+    }
+    container.appendChild(calculator);
+}
