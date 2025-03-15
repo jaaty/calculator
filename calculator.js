@@ -57,6 +57,19 @@ let operate = (num1, operator, num2) => {
     return result;
 };
 
+const operations = ["+", "-", "*", "/", "=", "C"];
+
+let evaluate = (expression) => {
+    let operator = expression.split('').filter(char => operations.includes(char));
+    let values = expression.split(operator);
+    let nums = [];
+    values.forEach(value => {
+        nums.push(Number(value));
+    });
+    let result = operate(nums[0], operator[0], nums[1]);
+    console.log(result);
+};
+
 let setupCalculator = () => {
     const container = document.querySelector(".container");
     const calculator = document.createElement("div");
@@ -65,21 +78,36 @@ let setupCalculator = () => {
     calculator.style.flexDirection = `column`;
     const rows = [];
     const buttons = [];
+    let expression = "";
     for (let i = 0; i < 10; i++) {
         const button = document.createElement("button");
         button.className = `${i}`;
         button.innerText = `${i}`;
         button.style.minWidth = `40px`;
         button.style.minHeight = `40px`;
+        button.addEventListener("click", () => {
+            expression = expression.concat(i);
+            console.log(expression);
+        });
         buttons.push(button);
     }
-    const operations = ["+", "-", "*", "/", "=", "C"];
+   
     operations.forEach(operation => {
         const button = document.createElement("button");
         button.className = `${operation}`;
         button.innerText = `${operation}`;
         button.style.minWidth = `40px`;
         button.style.minHeight = `40px`;
+        button.addEventListener("click", () => {
+            if (operation === "C") {
+                expression = "";
+            } else if (operation === "=") {
+                evaluate(expression);
+            } else {
+                expression = expression.concat(operation);
+                console.log(expression);
+            }
+        });
         buttons.push(button);
     });
 
