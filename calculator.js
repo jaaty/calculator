@@ -69,15 +69,17 @@ let setupCalculator = () => {
         const button = document.createElement("button");
         button.className = `${i}`;
         button.innerText = `${i}`;
-        button.style.width = `40px`;
-        button.style.height = `40px`;
+        button.style.minWidth = `40px`;
+        button.style.minHeight = `40px`;
         buttons.push(button);
     }
-    const operations = ["+", "-", "*", "/", "="];
+    const operations = ["+", "-", "*", "/", "=", "C"];
     operations.forEach(operation => {
         const button = document.createElement("button");
         button.className = `${operation}`;
         button.innerText = `${operation}`;
+        button.style.minWidth = `40px`;
+        button.style.minHeight = `40px`;
         buttons.push(button);
     });
 
@@ -88,6 +90,18 @@ let setupCalculator = () => {
         row.style.flexDirection = `row`;
         row.style.justifyContent = `center`;
         row.style.alignItems = `center`;
+        rows.push(row);
     }
+
+    rows.forEach(row => {
+        for (let i = 0; i < 4; i++) {
+            let btn = buttons.pop();
+            row.appendChild(btn);
+        }
+        calculator.appendChild(row);
+    });
+
     container.appendChild(calculator);
 }
+
+setupCalculator();
